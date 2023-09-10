@@ -7,7 +7,7 @@ The package also provides utility functions for specifying header and footer, an
 formatting requirements like new pages.
 
 # Installation
-`devtools::install_github("mrppdex/aRtf")`
+`devtools::install_github("mrppdex/aRtf", build_vignettes = TRUE)`
 
 # Example
 ```r

@@ -3,7 +3,7 @@ title: "Column Specifications Vignette"
 author: "Pawel Piela"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{specs-vignette}
+  %\VignetteIndexEntry{Column Specifications Vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
