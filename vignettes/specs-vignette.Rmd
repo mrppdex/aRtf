@@ -1,0 +1,120 @@
+---
+title: "Column Specifications Vignette"
+author: "Pawel Piela"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{specs-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(aRtf)
+
+### TEST
+# 1. Simple header with no sublevels.
+specs1 <- list(
+  list(label='Column A', just='c'),
+  list(label='Column B', just='c'),
+  list(label='Column C', just='c')
+)
+
+# 2. Header with one sublevel.
+specs2 <- list(
+  list(label='Main A', just='c', sub=list(
+    list(label='Sub A1', just='c'),
+    list(label='Sub A2', just='c')
+  )),
+  list(label='Main B', just='c')
+)
+
+# 3. Header with two sublevels.
+specs3 <- list(
+  list(label='Header A', just='c', sub=list(
+    list(label='Middle A1', just='c', sub=list(
+      list(label='Sub A1.1', just='c'),
+      list(label='Sub A1.2', just='c')
+    ))
+  )),
+  list(label='Header B', just='c')
+)
+
+# 4. Header with varying percentages.
+specs4 <- list(
+  list(label='Big Column', pct=70, just='c'),
+  list(label='Small Column', pct=30, just='c')
+)
+
+# 5. Header with mixed levels.
+specs5 <- list(
+  list(label='Mixed A', just='c', sub=list(
+    list(label='Sub A1', just='c'),
+    list(label='Sub A2', just='c', sub=list(
+      list(label='Deep A2.1', just='c')
+    ))
+  )),
+  list(label='Mixed B', just='c')
+)
+
+# 6. Header with long labels.
+specs6 <- list(
+  list(label='This is a very long column header', just='c'),
+  list(label='Short Header', just='c')
+)
+
+# 7. Header with all centered alignments.
+specs7 <- list(
+  list(label='Center A', just='c', sub=list(
+    list(label='Center A1', just='c'),
+    list(label='Center A2', just='c')
+  )),
+  list(label='Center B', just='c')
+)
+
+# 8. Header with mixed alignments.
+specs8 <- list(
+  list(label='Left Aligned', just='l', sub=list(
+    list(label='Center A1', just='c'),
+    list(label='Right A2', just='r')
+  )),
+  list(label='Right Aligned B', just='r')
+)
+
+# 9. Header with maximum nesting.
+specs9 <- list(
+  list(label='A', just='c', sub=list(
+    list(label='B', just='c', sub=list(
+      list(label='C', just='c', sub=list(
+        list(label='D', just='c', sub=list(
+          list(label='E', just='c')
+        ))
+      ))
+    ))
+  ))
+)
+
+# 10. Header with irregular nesting.
+specs10 <- list(
+  list(label='Irregular A', just='c', sub=list(
+    list(label='Sub A1', just='c'),
+    list(label='Sub A2', just='c', sub=list(
+      list(label='Deep A2.1', just='c', sub=list(
+        list(label='Deeper A2.1.1', just='c')
+      ))
+    ))
+  )),
+  list(label='Irregular B', just='c')
+)
+
+all_specs <- list(specs1, specs2, specs3, specs4, specs5, specs6, specs7, specs8, specs9, specs10)
+
+test_trash <- sapply(all_specs, function(x) cat(create_header_from_specs(x, 80)$header,'\n\n'))
+
+```
