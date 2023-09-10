@@ -1,0 +1,12 @@
+{\rtf1\ansi\deff4\deflang1033
+{\fonttbl {\f4\froman\fcharset0\fprq2 Arial;}
+{\f5\fswiss\fcharset0\fprq2 Arial;}
+{\f11\fmodern\fcharset0\fprq1 Courier New;}
+{\f14\fmodern\fcharset255\fprq2 Modern;}}
+{\stylesheet{\sb14\sa144\sl-300\slmult0\nowidctlpar \f4 \snext0 Normal;}
+{\s27\fi-1944\li1944\sb240\sa120\sl259\slmult0\keep\keepn\nowidctlpar \b\f5\fs22 \sbasedon43\snext0 Tbl Title Cont;}
+{\s34\sl-179\slmult0\nowidctlpar \b\hich\af0\dbch\af13\loch\f11\fs16 \sbasedon41\snext34 md_SAS Tb1 Entry;}
+{\s41\s1259\slmult0 \keep\keepn\nowidctlpar \f4\fs20 \sbasedon0\snext41 md_Tbl Entry;}
+{\s43\fi-1944\li1944\sb240\sa120\sl259\slmult0\keep\keepn\nowidctlpar \b\f5\fs22 \sbasedon0\snext0 Tbl Title;}} \paperw15840\paperh12240\margl1440\margr1440\margt1440\margb1440\gutter0
+\widowctrl\ftnbj \sectd\lndscpsxn\headery720\footery720\linex0 \fs0
+\par \pard\plain \s34\sl-179\slmult0\nowidctlpar \b\hich\af0\dbch\af13\loch\f11\fs16
