@@ -57,3 +57,6 @@ test_rtf <- aRtf::create_rtf_table(data=df, header_text_lines = header, footer_t
 # Save to file
 writeLines(test_rtf, 'out_fl.rtf')
 ```
+
+# Author
+pawel.piela at lilly.com
