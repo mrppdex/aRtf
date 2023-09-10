@@ -1,3 +1,3 @@
 # aRtf
 
-\code{devtool::install_github("jfpalomeque/Momocs")}
+`devtool::install_github("jfpalomeque/Momocs")`
