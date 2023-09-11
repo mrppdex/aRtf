@@ -155,7 +155,7 @@ create_rtf_table <- function(
 
     title <- top_header
     if (pg>1) {
-      title[1] <- paste('\\page', title[1])
+      title[1] <- paste0('\\page ', title[1])
     }
 
     final_table_txt <- c(final_table_txt,
@@ -167,7 +167,8 @@ create_rtf_table <- function(
 
   final_table <- c(
     rtf_header,
-    sapply(final_table_txt, function(x) paste0(rtf_row, x)),
+    sapply(final_table_txt, function(x) ifelse(grepl('^\\page', rtf_row), paste0(rtf_row, x),
+                                               paste(rtf_row, x))),
     '}')
 
   return(final_table)
