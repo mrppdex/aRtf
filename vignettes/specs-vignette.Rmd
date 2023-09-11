@@ -113,8 +113,17 @@ specs10 <- list(
   list(label='Irregular B', just='c')
 )
 
-all_specs <- list(specs1, specs2, specs3, specs4, specs5, specs6, specs7, specs8, specs9, specs10)
+# 11. Header with short first column and multiple columns spanned under one label
+specs11 <- list(
+  list(label='', pct=10, sub=list(
+    list(label='Col1')
+  )),
+  list(label='Column Spanner', sub=
+    lapply(2:12, function(x) list(label=paste0('Col', x), just='r'))
+  ))
 
-test_trash <- sapply(all_specs, function(x) cat(create_header_from_specs(x, 80)$header,'\n\n'))
+all_specs <- list(specs1, specs2, specs3, specs4, specs5, specs6, specs7, specs8, specs9, specs10, specs11)
+
+test_trash <- sapply(all_specs, function(x) cat(create_header_from_specs(x, 100)$header,'\n\n'))
 
 ```
