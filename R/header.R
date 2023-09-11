@@ -72,12 +72,20 @@ Header <- ggplot2::ggproto("Header",
                   complete_header = function(self) {
                     date_line <- NULL
                     if (length(self$lines)>1) {
-                      self$lines[2] <- substr_replace(self$lines[2], self$current_datetime, self$width-nchar(self$current_datetime), self$width)
+                      self$lines[2] <- substr_replace(self$lines[2], self$current_datetime, self$width-nchar(self$current_datetime)+1, self$width)
                     } else {
                       date_line <- sprintf("%*s", self$width, self$current_datetime)
                     }
-                    last_line <- sprintf("%*s", self$width, paste0(ifelse(self$input_status=='qa', 'TD', 'PD'),
-                                                                   ifelse(self$output_status=='qa', 'TM', 'PM')))
+
+                    status_string <- paste0(ifelse(self$input_status=='qa', 'TD', 'PD'),
+                                            ifelse(self$output_status=='qa', 'TM', 'PM'))
+                    last_line <- NULL
+                    if (length(self$lines)>2) {
+                      self$lines[3] <- substr_replace(self$lines[3], status_string, self$width-4+1, self$width)
+                    } else {
+                      last_line <- sprintf("%*s", self$width, status_string)
+                    }
+
                     if(length(self$lines)==0) {
                       self$lines <- strrep(' ', self$width)
                     }

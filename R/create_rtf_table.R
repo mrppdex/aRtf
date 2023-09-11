@@ -151,7 +151,7 @@ create_rtf_table <- function(
 
     pg_txt <- trimws(paste('Page', pg, 'of', N_pages))
     top_header <- new_header$get_lines()
-    top_header[1] <- substr_replace(top_header[1], pg_txt, nchar(top_header[1])-nchar(pg_txt), nchar(top_header[1]))
+    top_header[1] <- substr_replace(top_header[1], pg_txt, nchar(top_header[1])-nchar(pg_txt) + 1, nchar(top_header[1]))
 
     title <- top_header
     if (pg>1) {
