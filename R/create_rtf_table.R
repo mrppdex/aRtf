@@ -133,7 +133,8 @@ create_rtf_table <- function(
 
   total_length <- length(text)
   pg_starts <- sapply(1:ceiling(total_length/BODY_HEIGHT), function(x) (x-1)*BODY_HEIGHT+1)
-  pg_ends   <- c(pg_starts[2:length(pg_starts)]-1, total_length)
+  pg_ends   <- if(length(total_length)<=BODY_HEIGHT) total_length
+               else c(pg_starts[2:length(pg_starts)]-1, total_length)
   pg_start_stop_df <- as.data.frame(list(start=pg_starts, stop=pg_ends))
 
   header_file <- system.file("extdata", "rtf_header.txt", package="aRtf")
