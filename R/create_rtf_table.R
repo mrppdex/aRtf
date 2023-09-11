@@ -129,11 +129,12 @@ create_rtf_table <- function(
 
 
   # Calculate number of pages
-  N_pages <- ceiling(length(text)/(PAGE_HEIGHT - new_header$get_depth() - new_footer$get_depth() - length(table_columns_header)))
+  TEXT_PG_HEIGHT <- PAGE_HEIGHT - new_header$get_depth() - new_footer$get_depth() - length(table_columns_header)
+  N_pages <- ceiling(length(text)/TEXT_PG_HEIGHT)
 
   total_length <- length(text)
   pg_starts <- sapply(1:ceiling(total_length/BODY_HEIGHT), function(x) (x-1)*BODY_HEIGHT+1)
-  pg_ends   <- if(length(total_length)<=BODY_HEIGHT) total_length
+  pg_ends   <- if(length(total_length)<=TEXT_PG_HEIGHT) total_length
                else c(pg_starts[2:length(pg_starts)]-1, total_length)
   pg_start_stop_df <- as.data.frame(list(start=pg_starts, stop=pg_ends))
 
