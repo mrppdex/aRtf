@@ -55,40 +55,35 @@ justify_text <- function(text, width, justification) {
 #' # [[3]]
 #' # [1] "fdsafasdf "
 split_text <- function(text, width) {
-  # Split the text into words
-  words <- strsplit(text, " ")[[1]]
+  # Split the text into lines at each newline character
+  lines <- strsplit(text, "\n")[[1]]
 
-  # Initialize the list of lines and the current line
-  lines <- list()
-  current_line <- ""
-
-  # Loop over each word
-  for (word in words) {
-    # If the current word is longer than the specified width, it will be split
-    while (nchar(word) > width) {
-      # Extract the part of the word that fits on the current line
-      part <- substring(word, 1, width)
-      # Update the word to contain only the remaining characters
-      word <- substring(word, width + 1)
-      # Add the part of the word to the current line
-      current_line <- paste0(current_line, part)
-      # Add the current line to the list of lines and start a new line
-      lines <- c(lines, current_line)
-      current_line <- ""
+  # Function to wrap a single line to the specified width
+  wrap_line <- function(line, width) {
+    words <- strsplit(line, " ")[[1]]
+    lines <- list()
+    current_line <- ""
+    for (word in words) {
+      while (nchar(word) > width) {
+        part <- substring(word, 1, width)
+        word <- substring(word, width + 1)
+        current_line <- paste0(current_line, part)
+        lines <- c(lines, current_line)
+        current_line <- ""
+      }
+      if (nchar(current_line) + nchar(word) <= width) {
+        current_line <- paste0(current_line, word, " ")
+      } else {
+        lines <- c(lines, current_line)
+        current_line <- paste0(word, " ")
+      }
     }
-
-    # If the current word fits on the current line, add it to the current line
-    if (nchar(current_line) + nchar(word) <= width) {
-      current_line <- paste0(current_line, word, " ")
-    } else {
-      # Otherwise, add the current line to the list of lines and start a new line
-      lines <- c(lines, current_line)
-      current_line <- paste0(word, " ")
-    }
+    lines <- c(lines, current_line)
+    return(lines)
   }
 
-  # Add the remaining part of the current line to the list of lines
-  lines <- c(lines, current_line)
+  # Wrap each line to the specified width
+  wrapped_lines <- unlist(lapply(lines, wrap_line, width))
 
-  return(lines)
+  return(wrapped_lines)
 }
