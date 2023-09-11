@@ -15,8 +15,8 @@ where each list can contain the following elements:
   \item \code{label}: A string that specifies the label of the header or subheader.
   \item \code{just}: (Optional) A string that specifies the justification of the text. It can be 'l' for left-justified,
   'c' for center-justified, or 'r' for right-justified.
-  \item \code{width}: (Optional) A numeric value that specifies the width of the column. If not provided,
-  the width is determined based on the content of the column.
+  \item \code{pct}: (Optional) A numeric value that specifies the percentage width of the column, relative to
+  its parent. If not provided, the percentage is determined based on the content of the column.
   \item \code{sub}: (Optional) A list of subheaders. It is another list of lists with the same structure as
   'specs', which specifies the subheaders of the current header.
 }
