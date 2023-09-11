@@ -188,17 +188,23 @@ create_header_from_specs <- function(specs, width) {
     current_offset <- offset
     level_depth <- current_depth
 
+    total_sublevel_pcts <- c()
+    total_widths <- 0
     for (spec in specs) {
       label_lines <- unlist(strsplit(spec$label, "\n"))
       label_pct <- NA
       if (!is.null(spec$pct)) {
         label_pct <- spec$pct
       } else if (!is.null(spec$siblingspct)) {
-        label_pct <- (100 - spec$siblingspct)/(spec$siblings-spec$siblingsspecpct)
+        label_pct <- ((100-sum(total_sublevel_pcts)) - spec$siblingspct)/(spec$siblings-spec$siblingsspecpct)
       } else {
-        label_pct <- 100/spec$siblings
+        label_pct <- (100-sum(total_sublevel_pcts))/(spec$siblings - length(total_sublevel_pcts))
       }
+
       label_width <- ifelse(is.list(spec) && !is.null(spec$pct), floor(parent_width * (spec$pct / 100)), floor(label_pct*parent_width/100))
+      if (spec$last) label_width <- parent_width - total_widths
+      total_widths <- total_widths + label_width
+
       just <- ifelse(is.list(spec) && !is.null(spec$just), spec$just, 'c')
 
       for (i in 1:spec$depth) {
