@@ -33,7 +33,7 @@ footer <- c('Program path: c:\\')
 specs <- list(
   list(label='', sub=list(
     list(label='', sub=list(
-      list(label='Parameter Name', width=40, just='l')
+      list(label='Parameter Name', pct=40, just='l')
     ))
   )),
   list(label='LY', just='c', sub=list(
