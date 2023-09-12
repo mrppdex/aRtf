@@ -201,7 +201,7 @@ create_header_from_specs <- function(specs, width) {
         label_pct <- (100-sum(total_sublevel_pcts))/(spec$siblings - length(total_sublevel_pcts))
       }
 
-      label_width <- ifelse(is.list(spec) && !is.null(spec$pct), floor(parent_width * (spec$pct / 100)), floor(label_pct*parent_width/100))
+      label_width <- ifelse(is.list(spec) && !is.null(spec$pct), round(parent_width * (spec$pct / 100)), round(label_pct*parent_width/100))
       if (spec$last) label_width <- parent_width - total_widths
       total_widths <- total_widths + label_width
 
