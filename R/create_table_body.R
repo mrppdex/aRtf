@@ -46,7 +46,7 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
   }
 
   if(is.null(positions) | length(positions)<ncol(data)) {
-    positions <- widths
+    positions <- cumsum(widths)-widths[1]
   }
   if(is.null(just) | length(just)<ncol(data)) {
     just <- rep('l', ncol(data))
@@ -98,3 +98,4 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
 
   return(txt_lines)
 }
+
