@@ -46,7 +46,7 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
   }
 
   if(is.null(positions) | length(positions)<ncol(data)) {
-    positions <- cumsum(widths)-widths[1]
+    positions <- widths
   }
   if(is.null(just) | length(just)<ncol(data)) {
     just <- rep('l', ncol(data))
