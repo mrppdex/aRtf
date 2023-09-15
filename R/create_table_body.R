@@ -83,14 +83,14 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
       format_str <- ""
       args <- list()
       for (c in 1:(length(lines[[r]])-1)) {
-        space_width <- widths[c]-1
+        space_width <- widths[c]
         #format_gap <- ifelse(c<(length(lines[[r]])-1), widths[c]-positions[c+1], 0)
         format_gap <- ifelse(c<(length(lines[[r]])-1), vec_gaps[c], 0)
         format_str <- paste0(format_str, "%s%", format_gap, "s")
 
         col_txt <- ifelse(length(lines[[r]][[c]]) >= d, trimws(lines[[r]][[c]][[d]], which = 'right'), ' ')
         col_txt <- justify_text(col_txt, space_width, just[c])
-        args <- c(args, col_txt, ' ')
+        args <- c(args, col_txt, ifelse(format_gap==0,'',' '))
       }
       txt_lines <- c(txt_lines, do.call(sprintf, c(list(format_str), args)))
     }
