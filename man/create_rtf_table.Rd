@@ -10,6 +10,8 @@ create_rtf_table(
   col_just = NULL,
   header_text_lines = NULL,
   footer_text_lines = NULL,
+  input_status = "qa",
+  output_status = "qa",
   PAGE_WIDTH = 133,
   PAGE_HEIGHT = 45
 )
@@ -26,6 +28,12 @@ included in the table header.}
 
 \item{footer_text_lines}{A character vector containing the lines of text to be
 included in the table footer.}
+
+\item{input_status}{A string that represents the source environment of the input data.
+Can be either 'qa', or 'prd'. Default is 'qa'.}
+
+\item{output_status}{A string that represents in which environment will the output be saved.
+Can be either 'qa', or 'prd'. Default is 'qa'.}
 
 \item{PAGE_WIDTH}{The width of the page. Default is 133.}
 
@@ -45,6 +53,8 @@ The `specs` parameter is a list of specifications for the table header.
 The `col_just` parameter is a character vector specifying the justification of each column.
 The `header_text_lines` parameter is a character vector containing the lines of text to be included in the table header.
 The `footer_text_lines` parameter is a character vector containing the lines of text to be included in the table footer.
+The `input_status` parameter is a specify whether the data used in the table is in development (='qa'), or production (='prd') environment.
+The `output_status` parameter is a specify whether the table is saved in development (='qa'), or production (='prd') environment.
 The `PAGE_WIDTH` parameter specifies the width of the page.
 The `PAGE_HEIGHT` parameter specifies the height of the page.
 
