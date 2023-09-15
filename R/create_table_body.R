@@ -89,7 +89,7 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
         format_str <- paste0(format_str, "%s%", format_gap, "s")
 
         col_txt <- ifelse(length(lines[[r]][[c]]) >= d, trimws(lines[[r]][[c]][[d]], which = 'right'), ' ')
-        col_txt <- justify_text(col_txt, space_width, just[c])
+        col_txt <- justify_text(ifelse(just[c]=='c', trimws(col_txt), col_txt), space_width, just[c])
         args <- c(args, col_txt, ifelse(format_gap==0,'',' '))
       }
       txt_lines <- c(txt_lines, do.call(sprintf, c(list(format_str), args)))
