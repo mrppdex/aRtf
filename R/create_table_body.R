@@ -57,7 +57,7 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
   for (r in 1:nrow(data)) {
     lines[[r]] <- vector("list", ncol(data))
     for (c in 1:ncol(data)) {
-      lines[[r]][[c]] <- split_text(data[r, c], widths[c])
+      lines[[r]][[c]] <- split_text(data[r, c], widths[c] - as.integer(widths[c]>1))
     }
   }
 
@@ -83,13 +83,14 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
       format_str <- ""
       args <- list()
       for (c in 1:(length(lines[[r]])-1)) {
-        space_width <- widths[c]
+        space_width <- widths[c] - as.integer(widths[c]>1)
         #format_gap <- ifelse(c<(length(lines[[r]])-1), widths[c]-positions[c+1], 0)
         format_gap <- ifelse(c<(length(lines[[r]])-1), vec_gaps[c], 0)
         format_str <- paste0(format_str, "%s%", format_gap, "s")
 
         col_txt <- ifelse(length(lines[[r]][[c]]) >= d, trimws(lines[[r]][[c]][[d]], which = 'right'), ' ')
         col_txt <- justify_text(ifelse(just[c]=='c', trimws(col_txt), col_txt), space_width, just[c])
+        col_txt <- paste0(col_txt, ifelse(just[c] %in% c('c','r'), ' ', ''))
         args <- c(args, col_txt, ifelse(format_gap==0,'',' '))
       }
       txt_lines <- c(txt_lines, do.call(sprintf, c(list(format_str), args)))
