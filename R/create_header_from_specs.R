@@ -209,7 +209,11 @@ create_header_from_specs <- function(specs, width) {
 
       for (i in 1:spec$depth) {
         if (length(label_lines)>=i) {
-          lines[[current_depth]] <<- substr_replace(lines[[current_depth]], justify_text(label_lines[i], label_width, just), start=current_offset+1, stop=current_offset+label_width)
+          if (just %in% c('c','r') & !spec$last) {
+            lines[[current_depth]] <<- substr_replace(lines[[current_depth]], justify_text(label_lines[i], label_width, just), start=current_offset, stop=current_offset+label_width-1)
+          } else {
+            lines[[current_depth]] <<- substr_replace(lines[[current_depth]], justify_text(label_lines[i], label_width, just), start=current_offset+1, stop=current_offset+label_width)
+          }
           if (nchar(label_lines[i])>label_width) {
             warning(paste0('Column label "', label_lines[i],'" is truncated. Increase the column width.'))
           }
