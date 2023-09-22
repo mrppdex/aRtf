@@ -31,9 +31,9 @@ justify_text <- function(text, width, justification) {
   if (justification == 'c') {
     return(sprintf("%*s", -width, sprintf("%*s", (nchar(text) + width) %/% 2, text)))
   } else if (justification == 'r') {
-    return(paste0(sprintf("%*s", width - 1, text), " "))
+    return(sprintf("%*s", width, text))
   } else {  # Left alignment
-    return(paste0(" ", sprintf("%-*s", width - 1, text)))
+    return(sprintf("%-*s", width, text))
   }
 }
 
@@ -56,6 +56,7 @@ justify_text <- function(text, width, justification) {
 #' # [1] "fdsafasdf "
 split_text <- function(text, width) {
   # Split the text into lines at each newline character
+  text <- ifelse(is.na(text) | text=='', ' ', text)
   lines <- strsplit(text, "\n")[[1]]
 
   # Function to wrap a single line to the specified width
@@ -78,7 +79,7 @@ split_text <- function(text, width) {
         current_line <- paste0(word, " ")
       }
     }
-    lines <- c(lines, current_line)
+    lines <- c(lines, trimws(current_line, which = 'right'))
     return(lines)
   }
 
