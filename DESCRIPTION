@@ -4,15 +4,18 @@ Title: Create Formatted Tables in RTF Format
 Version: 0.1.0
 Imports:
     ggplot2
-Author: Pawel Piela <pawel.piela@lilly.com>
-Maintainer: Pawel Piela <pawel.piela@lilly.com>
+Authors@R: c(
+    person("Pawel", "Piela", email = "pawel.piela@lilly.com", role = c("aut", "cre")),
+    person("Greg", "Anglin", role = "aut"))
 Description: The aRtf package provides functions to create formatted tables in Rich Text Format (RTF) 
     from R data frames. The main function, create_rtf_table, takes a data frame, header and footer specifications, 
     and other formatting options, and returns a character vector containing the RTF code for the table. 
     This RTF code can then be written to a file and opened in any word processing software that supports RTF. 
     The package also provides utility functions for specifying header and footer, and for handling special 
     formatting requirements like new pages.
-License: MIT
+License: GPL-2
+URL: https://github.com/mrppdex/aRtf
+BugReports: https://github.com/mrppdex/aRtf/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
