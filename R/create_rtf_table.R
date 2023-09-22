@@ -98,6 +98,8 @@ create_rtf_table <- function(
   header <- create_header_from_specs(specs, width = PAGE_WIDTH)
   table_columns_header <- strsplit(header$header, '\n')[[1]]
 
+  stopifnot("Number of columns in data and specs is NOT matched" = length(header$column_widths)==ncol(data))
+
   # Create Top Header
   new_header <- Header$new()
   for(t in header_text_lines) {
