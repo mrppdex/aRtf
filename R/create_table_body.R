@@ -74,7 +74,8 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
   }
 
   # Vector of gaps between columns
-  vec_gaps <- c(0, positions[2:length(positions)] - (widths + positions)[1:length(positions)-1])
+  #vec_gaps <- c(0, positions[2:length(positions)] - (widths + positions)[1:length(positions)-1])
+  vec_gaps <- positions - c(0, cumsum(widths[1:(length(widths)-1)]))
 
   # Create lines of text for the output
   txt_lines <- c()
@@ -82,16 +83,17 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
     for (d in 1:(lines[[r]]$depth)) {
       format_str <- ""
       args <- list()
-      for (c in 1:(length(lines[[r]])-1)) {
-        space_width <- widths[c] - as.integer(widths[c]>1)
+      for (col in 1:(length(lines[[r]])-1)) {
+        space_width <- widths[col] - vec_gaps[col] #as.integer(widths[col]>1)
         #format_gap <- ifelse(c<(length(lines[[r]])-1), widths[c]-positions[c+1], 0)
-        format_gap <- ifelse(c<(length(lines[[r]])-1), vec_gaps[c], 0)
-        format_str <- paste0(format_str, "%s%", format_gap, "s")
+        #format_gap <- ifelse(col<(length(lines[[r]])-1), vec_gaps[col], 0)
+        format_gap <- vec_gaps[col]
+        format_str <- paste0(format_str, "%", format_gap, "s%s")
 
-        col_txt <- ifelse(length(lines[[r]][[c]]) >= d, trimws(lines[[r]][[c]][[d]], which = 'right'), ' ')
-        col_txt <- justify_text(ifelse(just[c]=='c', trimws(col_txt), col_txt), space_width, just[c])
-        col_txt <- paste0(col_txt, ifelse(just[c] %in% c('c','r'), ' ', ''))
-        args <- c(args, col_txt, ifelse(format_gap==0,'',' '))
+        col_txt <- ifelse(length(lines[[r]][[col]]) >= d, trimws(lines[[r]][[col]][[d]], which = 'right'), ' ')
+        col_txt <- justify_text(ifelse(just[col]=='c', trimws(col_txt), col_txt), space_width, just[col])
+        #col_txt <- paste0(col_txt, ifelse(just[col] %in% c('c','r') & col!=(length(lines[[r]])-1), ' ', ''))
+        args <- c(args, ifelse(format_gap==0,'',' '), col_txt)
       }
       txt_lines <- c(txt_lines, do.call(sprintf, c(list(format_str), args)))
     }
