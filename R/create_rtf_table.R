@@ -104,7 +104,7 @@ create_rtf_table <- function(
   stopifnot("Number of columns in data and specs is NOT matched" = length(header$column_widths)==ncol(data))
 
   # Create Top Header
-  new_header <- Header$new()
+  new_header <- Header$new(PAGE_WIDTH)
   for(t in header_text_lines) {
     new_header$add_line(t)
   }
@@ -112,13 +112,13 @@ create_rtf_table <- function(
   new_header$complete_header()
 
   # Create Footer
-  new_footer <- Footer$new()
+  new_footer <- Footer$new(PAGE_WIDTH)
   for (t in footer_text_lines) {
     new_footer$add_line(t)
   }
 
   # Process Data
-  text <- create_table_body(data, PAGE_WIDTH, widths = header$column_widths, positions = header$columns_offsets, just = col_just)
+  text <- create_table_body(data, table_width = PAGE_WIDTH, widths = header$column_widths, positions = header$columns_offsets, just = col_just)
 
   # Augment text
   # when $NEWPAGE$, complete the page to the size:
