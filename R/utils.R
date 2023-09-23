@@ -75,7 +75,7 @@ split_text <- function(text, width) {
       if (nchar(current_line) + nchar(word) <= width) {
         current_line <- paste0(current_line, word, " ")
       } else {
-        lines <- c(lines, current_line)
+        lines <- c(lines, trimws(current_line, which = 'right'))
         current_line <- paste0(word, " ")
       }
     }
