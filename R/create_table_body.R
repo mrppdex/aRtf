@@ -52,12 +52,16 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
     just <- rep('l', ncol(data))
   }
 
+  # Vector of gaps between columns
+  #vec_gaps <- c(0, positions[2:length(positions)] - (widths + positions)[1:length(positions)-1])
+  vec_gaps <- positions - c(0, cumsum(widths[1:(length(widths)-1)]))
+
   # Split col text
   lines <- vector("list", nrow(data))
   for (r in 1:nrow(data)) {
     lines[[r]] <- vector("list", ncol(data))
     for (c in 1:ncol(data)) {
-      lines[[r]][[c]] <- split_text(data[r, c], widths[c] - as.integer(widths[c]>1))
+      lines[[r]][[c]] <- split_text(data[r, c], widths[c] - vec_gaps[c])
     }
   }
 
@@ -73,9 +77,7 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
     }
   }
 
-  # Vector of gaps between columns
-  #vec_gaps <- c(0, positions[2:length(positions)] - (widths + positions)[1:length(positions)-1])
-  vec_gaps <- positions - c(0, cumsum(widths[1:(length(widths)-1)]))
+
 
   # Create lines of text for the output
   txt_lines <- c()
@@ -90,7 +92,8 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
         format_gap <- vec_gaps[col]
         format_str <- paste0(format_str, "%", format_gap, "s%s")
 
-        col_txt <- ifelse(length(lines[[r]][[col]]) >= d, trimws(lines[[r]][[col]][[d]], which = 'right'), ' ')
+        #col_txt <- ifelse(length(lines[[r]][[col]]) >= d, trimws(lines[[r]][[col]][[d]], which = 'right'), ' ')
+        col_txt <- ifelse(length(lines[[r]][[col]]) >= d, lines[[r]][[col]][[d]], ' ')
         col_txt <- justify_text(ifelse(just[col]=='c', trimws(col_txt), col_txt), space_width, just[col])
         #col_txt <- paste0(col_txt, ifelse(just[col] %in% c('c','r') & col!=(length(lines[[r]])-1), ' ', ''))
         args <- c(args, ifelse(format_gap==0,'',' '), col_txt)

@@ -252,6 +252,6 @@ create_header_from_specs <- function(specs, width) {
 
   print_hierarchy_augmented(augmented_specs, width)
   return(list(header = paste(c(strrep("-", width), unlist(lines), strrep("-", width)), collapse="\n"),
-              column_widths = unlist(column_widths),
+              column_widths = unlist(column_widths)-1,
               columns_offsets = unlist(column_offsets)-1))
 }
