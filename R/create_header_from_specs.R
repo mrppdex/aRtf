@@ -158,6 +158,7 @@ create_header_from_specs <- function(specs, width) {
       }
 
       # If it's the last element in its level, add the 'last' flag
+      specs[[i]]$first <- ifelse(i == 1, TRUE, FALSE)
       specs[[i]]$last <- ifelse(i == length(specs), TRUE, FALSE)
     }
 
@@ -191,6 +192,7 @@ create_header_from_specs <- function(specs, width) {
     total_sublevel_pcts <- c()
     total_widths <- 0
     for (spec in specs) {
+
       label_lines <- unlist(strsplit(spec$label, "\n"))
       label_pct <- NA
       if (!is.null(spec$pct)) {
@@ -251,5 +253,5 @@ create_header_from_specs <- function(specs, width) {
   print_hierarchy_augmented(augmented_specs, width)
   return(list(header = paste(c(strrep("-", width), unlist(lines), strrep("-", width)), collapse="\n"),
               column_widths = unlist(column_widths),
-              columns_offsets = unlist(column_offsets)))
+              columns_offsets = unlist(column_offsets)-1))
 }
