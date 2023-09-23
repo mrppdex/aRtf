@@ -183,7 +183,7 @@ create_header_from_specs <- function(specs, width) {
   column_widths <- list()
   column_offsets <- list()
 
-  print_hierarchy_augmented <- function(specs, parent_width, offset=0, current_depth=1, prev_depth=1) {
+  print_hierarchy_augmented <- function(specs, parent_width, offset=1, current_depth=1, prev_depth=1) {
 
     current_offset <- offset
     level_depth <- current_depth
@@ -209,11 +209,10 @@ create_header_from_specs <- function(specs, width) {
 
       for (i in 1:spec$depth) {
         if (length(label_lines)>=i) {
-          if (just %in% c('c','r') & !spec$last) {
-            lines[[current_depth]] <<- substr_replace(lines[[current_depth]], justify_text(label_lines[i], label_width, just), start=current_offset, stop=current_offset+label_width-1)
-          } else {
-            lines[[current_depth]] <<- substr_replace(lines[[current_depth]], justify_text(label_lines[i], label_width, just), start=current_offset+1, stop=current_offset+label_width)
-          }
+          lines[[current_depth]] <<- substr_replace(lines[[current_depth]],
+                                                    paste0(justify_text(label_lines[i], label_width-1, just),' '),
+                                                    start=current_offset, stop=current_offset+label_width-1)
+
           if (nchar(label_lines[i])>label_width) {
             warning(paste0('Column label "', label_lines[i],'" is truncated. Increase the column width.'))
           }
