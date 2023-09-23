@@ -16,6 +16,7 @@
 #' Can be either 'qa', or 'prd'. Default is 'qa'.
 #' @param PAGE_WIDTH The width of the page. Default is 133.
 #' @param PAGE_HEIGHT The height of the page. Default is 45.
+#' @param get_pages Return additional list of raw page text. Default FALSE.
 #'
 #' @details
 #' The function creates a table in RTF format with the specified header, body, and footer.
@@ -28,6 +29,7 @@
 #' The `output_status` parameter is a specify whether the table is saved in development (='qa'), or production (='prd') environment.
 #' The `PAGE_WIDTH` parameter specifies the width of the page.
 #' The `PAGE_HEIGHT` parameter specifies the height of the page.
+#' THE `get_pages` parameter allows the raw page text to be returned.
 #'
 #' If $NEWPAGE$ is included in any of the table body rows, it will start a new page.
 #'
@@ -85,7 +87,8 @@ create_rtf_table <- function(
     input_status = 'qa',
     output_status = 'qa',
     PAGE_WIDTH=133,
-    PAGE_HEIGHT=45) {
+    PAGE_HEIGHT=45,
+    get_pages = FALSE) {
 
   data <- data.frame(lapply(data, as.character), stringsAsFactors = FALSE)
 
@@ -155,6 +158,7 @@ create_rtf_table <- function(
   rtf_header <- rtf_header[1:length(rtf_header)-1]
 
   final_table_txt <- c()
+  final_table_pages <- list()
 
   for (pg in 1:nrow(pg_start_stop_df)) {
     start <- pg_start_stop_df[pg, 'start']
@@ -169,11 +173,18 @@ create_rtf_table <- function(
       title[1] <- paste0('\\page ', title[1])
     }
 
-    final_table_txt <- c(final_table_txt,
-                         title,
-                         table_columns_header,
-                         text[start:stop],
-                         new_footer$get_lines())
+    page_text <- list(
+      c(
+        title,
+        table_columns_header,
+        text[start:stop],
+        new_footer$get_lines()
+      )
+    )
+
+    final_table_pages <- c(final_table_pages, page_text)
+
+    final_table_txt <- c(final_table_txt, unlist(page_text))
   }
 
   final_table <- c(
@@ -181,6 +192,10 @@ create_rtf_table <- function(
     sapply(final_table_txt, function(x) ifelse(grepl('^\\page', rtf_row), paste0(rtf_row, x),
                                                paste(rtf_row, x))),
     '}')
+
+  if (get_pages) {
+    return(list(final_table, final_table_pages))
+  }
 
   return(final_table)
 }

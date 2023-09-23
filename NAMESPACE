@@ -3,6 +3,7 @@
 export(Footer)
 export(Header)
 export(create_header_from_specs)
+export(create_rtf_multiple_specs)
 export(create_rtf_table)
 export(create_table_body)
 import(ggplot2)

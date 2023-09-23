@@ -13,7 +13,8 @@ create_rtf_table(
   input_status = "qa",
   output_status = "qa",
   PAGE_WIDTH = 133,
-  PAGE_HEIGHT = 45
+  PAGE_HEIGHT = 45,
+  get_pages = FALSE
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ Can be either 'qa', or 'prd'. Default is 'qa'.}
 \item{PAGE_WIDTH}{The width of the page. Default is 133.}
 
 \item{PAGE_HEIGHT}{The height of the page. Default is 45.}
+
+\item{get_pages}{Return additional list of raw page text. Default FALSE.}
 }
 \value{
 A character vector containing the RTF code for the table.
@@ -57,6 +60,7 @@ The `input_status` parameter is a specify whether the data used in the table is 
 The `output_status` parameter is a specify whether the table is saved in development (='qa'), or production (='prd') environment.
 The `PAGE_WIDTH` parameter specifies the width of the page.
 The `PAGE_HEIGHT` parameter specifies the height of the page.
+THE `get_pages` parameter allows the raw page text to be returned.
 
 If $NEWPAGE$ is included in any of the table body rows, it will start a new page.
 }
