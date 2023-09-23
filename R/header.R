@@ -47,9 +47,6 @@ Header <- ggplot2::ggproto("Header",
                   add_line = function(self, txt) {
                     txt_split <- sapply(split_text(txt, self$width - nchar(self$current_datetime) - 2),
                                         function(s) sprintf("%*s", -self$width, s))
-                    # if (length(self$lines)==1) {
-                    #   txt_split[1] <- substr_replace(txt_split[1], self$current_datetime, self$width-nchar(self$current_datetime), self$width)
-                    # }
                     for (l in txt_split) {
                       self$lines <- c(self$lines, l)
                     }
@@ -57,8 +54,9 @@ Header <- ggplot2::ggproto("Header",
                   get_lines = function(self) {
                     return(self$lines)
                   },
-                  new = function(self) {
+                  new = function(self, width=133) {
                     self$current_datetime <- toupper(format(Sys.time(), "%H:%M %d%b%Y"))
+                    self$width <- width
                     self$lines <-c()
                     return(self)
                   },

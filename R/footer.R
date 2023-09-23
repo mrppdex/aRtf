@@ -32,7 +32,8 @@
 Footer <- ggplot2::ggproto("Footer",
                            width = 133,
                            lines = c(),
-                           new = function(self) {
+                           new = function(self, width=133) {
+                             self$width <- width
                              self$lines <-c(strrep('-', self$width))
                              return(self)
                            },
