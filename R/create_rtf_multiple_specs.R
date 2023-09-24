@@ -7,6 +7,19 @@
 #' @param split_list List, defining the columns for each split of data.
 #' @param specs_list List of lists, providing specifications for each subset of data. Each element of the list corresponds to a subset defined in \code{split_list}.
 #' @param just_list List of vectors, defining the justification for each column in each subset of data.
+#' @param header_text_lines A character vector containing the lines of text to be
+#' included in the table header.
+#' @param footer_text_lines A character vector containing the lines of text to be
+#' included in the table footer.
+#' @param input_status A string that represents the source environment of the input data.
+#' Can be either 'qa', or 'prd'. Default is 'qa'.
+#' @param output_status A string that represents in which environment will the output be saved.
+#' Can be either 'qa', or 'prd'. Default is 'qa'.
+#' @param PAGE_WIDTH The width of the page. Default is 133.
+#' @param PAGE_HEIGHT The height of the page. Default is 45.
+#'
+#' @seealso
+#' \code{\link{create_rtf_table}} for the detailed explanation of the parameters.
 #'
 #' @return A character vector, where each element represents a line in the final RTF document.
 #'
@@ -39,7 +52,13 @@
 create_rtf_multiple_specs <- function(data,
                                       split_list,
                                       specs_list=NULL,
-                                      just_list=NULL) {
+                                      just_list=NULL,
+                                      header_text_lines=NULL,
+                                      footer_text_lines=NULL,
+                                      input_status = 'qa',
+                                      output_status = 'qa',
+                                      PAGE_WIDTH=133,
+                                      PAGE_HEIGHT=45) {
 
   # copy $NEWPAGE$ to all columns in a row
   for (i in 1:nrow(data)) {
@@ -65,6 +84,12 @@ create_rtf_multiple_specs <- function(data,
       data=x[[1]],
       specs = x$specs,
       col_just = x$just,
+      header_text_lines = header_text_lines,
+      footer_text_lines = footer_text_lines,
+      input_status = input_status,
+      output_status = output_status,
+      PAGE_WIDTH = PAGE_WIDTH,
+      PAGE_HEIGHT = PAGE_HEIGHT,
       get_pages = T
     )[[2]]
   })
