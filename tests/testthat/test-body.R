@@ -1,7 +1,7 @@
 test_that("create_table_body works with provided widths, positions, and justifications", {
   data <- data.frame(col1=c("apple", "banana"), col2=c("car", "dog"))
   table_width <- 20
-  widths <- c(10, 10)
+  widths <- c(9, 9)
   positions <- c(1, 11)
   just <- c('c', 'r')
   result <- create_table_body(data, table_width, widths, positions, just)
@@ -26,14 +26,13 @@ test_that("create_table_body handles different numbers of rows and columns", {
 
 test_that("create_table_body handles different column widths", {
   data <- data.frame(col1=c("apple", "banana"), col2=c("car", "dog"))
-  table_width <- 20
+  table_width <- 22
   widths <- c(5, 15)
-  positions <- c(1, 6)
+  positions <- c(1, 7)
   result <- create_table_body(data, table_width, widths, positions)
-  expected <- c(" appl car           ",
-                " e                  ",
-                " bana dog           ",
-                " na                 ")
+  expected <- c(" apple car            ",
+                " banan dog            ",
+                " a                    ")
   expect_equal(result, expected)
 })
 

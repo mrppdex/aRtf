@@ -57,7 +57,9 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
   #vec_gaps <- positions - c(0, cumsum(widths[1:(length(widths)-1)]))
   #vec_gaps <- c(positions[1], positions[2:length(positions)] - (positions + widths)[1:(length(positions)-1)])
   #vec_gaps <- c(0, diff(positions) - head(widths, -1))
-  vec_gaps <- positions - c(0, cumsum(widths)[-length(widths)])
+  #vec_gaps <- positions - c(0, cumsum(widths)[-length(widths)])
+  vec_gaps <- positions - c(0, (widths+positions)[-length(positions)])
+
 
 
   # Split col text
@@ -65,7 +67,7 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
   for (r in 1:nrow(data)) {
     lines[[r]] <- vector("list", ncol(data))
     for (c in 1:ncol(data)) {
-      lines[[r]][[c]] <- split_text(data[r, c], widths[c] - vec_gaps[c])
+      lines[[r]][[c]] <- split_text(data[r, c], widths[c])
     }
   }
 
@@ -90,7 +92,7 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
       format_str <- ""
       args <- list()
       for (col in 1:(length(lines[[r]])-1)) {
-        space_width <- widths[col] - vec_gaps[col] #as.integer(widths[col]>1)
+        space_width <- widths[col] #as.integer(widths[col]>1)
         #format_gap <- ifelse(c<(length(lines[[r]])-1), widths[c]-positions[c+1], 0)
         #format_gap <- ifelse(col<(length(lines[[r]])-1), vec_gaps[col], 0)
         format_gap <- vec_gaps[col]
