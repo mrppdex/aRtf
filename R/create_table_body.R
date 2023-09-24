@@ -54,7 +54,11 @@ create_table_body <- function(data, table_width, widths=NULL, positions=NULL, ju
 
   # Vector of gaps between columns
   #vec_gaps <- c(0, positions[2:length(positions)] - (widths + positions)[1:length(positions)-1])
-  vec_gaps <- positions - c(0, cumsum(widths[1:(length(widths)-1)]))
+  #vec_gaps <- positions - c(0, cumsum(widths[1:(length(widths)-1)]))
+  #vec_gaps <- c(positions[1], positions[2:length(positions)] - (positions + widths)[1:(length(positions)-1)])
+  #vec_gaps <- c(0, diff(positions) - head(widths, -1))
+  vec_gaps <- positions - c(0, cumsum(widths)[-length(widths)])
+
 
   # Split col text
   lines <- vector("list", nrow(data))
