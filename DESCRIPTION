@@ -6,7 +6,7 @@ Imports:
     ggplot2
 Authors@R: c(
     person("Pawel", "Piela", email = "pawel.piela@lilly.com", role = c("aut", "cre")),
-    person("Greg", "Anglin", role = "aut"))
+    person("Greg", "Anglin", email = "GREG.ANGLINn@lilly.com", role = "aut"))
 Description: The aRtf package provides functions to create formatted tables in Rich Text Format (RTF) 
     from R data frames. The main function, create_rtf_table, takes a data frame, header and footer specifications, 
     and other formatting options, and returns a character vector containing the RTF code for the table. 
